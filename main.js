@@ -35,13 +35,15 @@ var Finished = React.createClass({
 });
 
 var Peice = React.createClass({
+  getInitialState: function() {
+    return { previous: { x: 0, y: 0 }};
+  },
   onClickHandler: function() {
+    this.setState({ previous: { x: this.props.x, y: this.props.y} });
     this.props.onClick(this.props.id);
   },
-  render: function() {
-    if ( this.props.dummy ) {
-      throw "Rendering dummy peice."
-    }
+  interpolateStyle: function(iStyle) {
+    var onClickHandler = this.onClickHandler;
     var style = {
       backgroundImage: 'url(' + this.props.img + ')', 
       backgroundRepeat: 'no',
@@ -49,12 +51,30 @@ var Peice = React.createClass({
       height: this.props.height + 'px', 
       backgroundPosition: '-' + (this.props.finalX * this.props.width) + 'px -' + (this.props.finalY * this.props.height) + 'px',
       position: 'absolute',
-      left: ( this.props.width * this.props.x ) + 'px',
-      top: ( this.props.height * this.props.y ) + 'px'
+      left: iStyle.leftX + 'px',
+      top: iStyle.topY + 'px'
+    };
+    return <div style={style} onClick={onClickHandler} />;
+  },
+  render: function() {
+    if ( this.props.dummy ) {
+      throw "Rendering dummy peice."
+    }
+
+    var defaultStyle = { 
+      leftX: ( this.props.width * this.state.previous.x ), 
+      topY: ( this.props.height * this.state.previous.y) 
+    };
+    
+    var motionStyle = {
+      leftX: ReactMotion.spring( this.props.width * this.props.x ), 
+      topY: ReactMotion.spring( this.props.height * this.props.y )
     };
 
     return (
-      <div style={style} onClick={this.onClickHandler} />
+      <ReactMotion.Motion defaultStyle={defaultStyle} style={motionStyle}>
+        {this.interpolateStyle}
+      </ReactMotion.Motion>
     );
   }
 });
