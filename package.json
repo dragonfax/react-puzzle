@@ -1,0 +1,27 @@
+{
+  "name": "react-puzzle",
+  "version": "1.0.0",
+  "description": "Simple picture puzzl to learn react.js",
+  "main": "main.js",
+  "dependencies": {
+    "babel-preset-react": "^6.5.0",
+    "babelify": "^7.2.0",
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8",
+    "react-motion": "^0.4.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dragonfax/react-puzzle.git"
+  },
+  "author": "Jason Stillwell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dragonfax/react-puzzle/issues"
+  },
+  "homepage": "https://github.com/dragonfax/react-puzzle#readme"
+}

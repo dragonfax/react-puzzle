@@ -1,7 +1,7 @@
 
 ### Instructions
 
-npm install --save react react-dom babelify babel-preset-react react-motion
+npm install
 
 npm install -g browserify
 
