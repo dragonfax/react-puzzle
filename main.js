@@ -85,10 +85,10 @@ var Puzzle = React.createClass({
       })
     }
 
-    // dummy cell.
-    cells[8].dummy = true;
+    var emptyCell = cells.pop();
+    emptyCell.dummy = true;
 
-    this.setState({ cells: cells, emptyCell: cells[8] });
+    this.setState({ cells: cells, emptyCell: emptyCell });
 
   },
   checkFinished: function() {
