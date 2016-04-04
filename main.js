@@ -50,7 +50,7 @@ var Peice = React.createClass({
 
 var Puzzle = React.createClass({
   getInitialState: function() {
-    return {cells: [], emptyCell: null }
+    return {cells: [], emptyCell: null, finished: false}
   },
   componentDidMount: function() {
 
@@ -122,6 +122,10 @@ var Puzzle = React.createClass({
 
       this.setState({ emptyCell: emptyCell });
     }
+
+    if ( this.checkFinished() ) {
+      this.setState({ finished: true });
+    }
   },
   findCellById: function(cell_id) {
     for ( i = 0; i < this.state.cells.length; i++ ) {
@@ -163,13 +167,30 @@ var Puzzle = React.createClass({
       );
     }, this);
 
-    return (
-      <table>
-        <tbody>
-          {grid}
-        </tbody>
-      </table>
+    var status;
+    if ( this.state.finished ) {
+      var style = {
+        position: 'absolute',
+        left: 50 + '%',
+        top: 50 + '%'
+      };
+      status = (
+          <div style={style}>Completed</div>
+      );
+    }
+
+    var table = (
+      <div>
+        <table>
+          <tbody>
+            {grid}
+          </tbody>
+        </table>
+        {status ? status : ''}
+      </div>
     );
+
+    return table;
   }
 });
 
