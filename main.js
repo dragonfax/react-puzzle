@@ -23,6 +23,17 @@ var React = require ('react');
 var ReactDOM = require('react-dom');
 var ReactMotion = require('react-motion');
 
+var Finished = React.createClass({
+  render: function() {
+    var style = {
+      position: 'asbolute',
+      left: '50%',
+      top: '50%'
+    };
+    return <div style={style}>Finished</div>
+  }
+});
+
 var Peice = React.createClass({
   onClickHandler: function() {
     this.props.onClick(this.props.id);
@@ -161,19 +172,9 @@ var Puzzle = React.createClass({
         return <Peice id={cell.id} img={this.props.img} width={peiceWidth} height={peiceHeight} finalX={cell.finalPosition.x} finalY={cell.finalPosition.y} x={cell.currentPosition.x} y={cell.currentPosition.y} onClick={this.swapPeices} dummy={cell.dummy} />;
     }, this);
 
-    var status;
-    if ( this.state.finished ) {
-      var style = {
-        position: 'absolute',
-        left: 50 + '%',
-        top: 50 + '%'
-      };
-      status = (
-          <div style={style}>Completed</div>
-      );
-    }
+    var status = <Finished/>;
 
-    var table = <div style={{ width: this.props.width + 'px', height: this.props.height + 'px', marginLeft: 'auto', marginRight: 'auto'}}> {grid} {status ? status : ''} </div>;
+    var table = <div style={{ width: this.props.width + 'px', height: this.props.height + 'px', marginLeft: 'auto', marginRight: 'auto'}}> {grid} {this.state.finished ? status : ''} </div>;
 
     return table;
   }
