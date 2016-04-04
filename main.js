@@ -21,6 +21,7 @@ function shuffle(array) {
 
 var React = require ('react');
 var ReactDOM = require('react-dom');
+var ReactMotion = require('react-motion');
 
 var Peice = React.createClass({
   onClickHandler: function() {
@@ -32,13 +33,19 @@ var Peice = React.createClass({
       backgroundRepeat: 'no',
       width: this.props.width + 'px', 
       height: this.props.height + 'px', 
-      backgroundPosition: '-' + (this.props.finalX * this.props.width) + 'px -' + (this.props.finalY * this.props.height) + 'px'
+      backgroundPosition: '-' + (this.props.finalX * this.props.width) + 'px -' + (this.props.finalY * this.props.height) + 'px',
+      position: 'absolute',
+      left: ( this.props.width * this.props.x ) + 'px',
+      top: ( this.props.height * this.props.y ) + 'px'
     };
 
     if ( this.props.dummy ) {
       style = {
         width: this.props.width + 'px',
-        height: this.props.height + 'px'
+        height: this.props.height + 'px',
+        position: 'absolute',
+        left: ( this.props.width * this.props.x ) + 'px',
+        top: ( this.props.height * this.props.y ) + 'px'
       };
     }
     
@@ -150,21 +157,8 @@ var Puzzle = React.createClass({
     var peiceWidth = this.props.width / 3;
     var peiceHeight = this.props.height / 3;
 
-    var grid = [0,1,2].map( function(y) {
-      return (
-        <tr>
-          {
-            [0,1,2].map( function(x) {
-              var cell = this.findCell(x,y);
-              if ( cell ) {
-              return (
-                <td><Peice id={cell.id} img={this.props.img} width={peiceWidth} height={peiceHeight} finalX={cell.finalPosition.x} finalY={cell.finalPosition.y} x={cell.currentPosition.x} y={cell.currentPosition.y} onClick={this.swapPeices} dummy={cell.dummy} /></td>
-              );
-              }
-            }, this)
-          }
-        </tr>
-      );
+    var grid = this.state.cells.map( function(cell) {
+        return <Peice id={cell.id} img={this.props.img} width={peiceWidth} height={peiceHeight} finalX={cell.finalPosition.x} finalY={cell.finalPosition.y} x={cell.currentPosition.x} y={cell.currentPosition.y} onClick={this.swapPeices} dummy={cell.dummy} />;
     }, this);
 
     var status;
@@ -179,16 +173,7 @@ var Puzzle = React.createClass({
       );
     }
 
-    var table = (
-      <div>
-        <table>
-          <tbody>
-            {grid}
-          </tbody>
-        </table>
-        {status ? status : ''}
-      </div>
-    );
+    var table = <div style={{ width: this.props.width + 'px', height: this.props.height + 'px', marginLeft: 'auto', marginRight: 'auto'}}> {grid} {status ? status : ''} </div>;
 
     return table;
   }
