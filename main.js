@@ -51,11 +51,6 @@ var Peice = React.createClass({
       throw "Rendering dummy peice."
     }
 
-    var defaultStyle = { 
-      leftX: ( this.props.width * this.state.previous.x ), 
-      topY: ( this.props.height * this.state.previous.y) 
-    };
-    
     var motionStyle = {
       leftX: ReactMotion.spring( this.props.width * this.props.x ), 
       topY: ReactMotion.spring( this.props.height * this.props.y )
@@ -138,14 +133,7 @@ var Puzzle = React.createClass({
   swapPeices: function(peice_id) {
 
     var cell = this.findCellById(peice_id);
-    if ( ! cell ) {
-      return
-    }
-
     var emptyCell = this.state.emptyCell;
-    if ( ! emptyCell ) {
-      debugger;
-    }
 
     // if the empty space is near it, then swap them.
     if ( this.adjacentCells(cell, emptyCell) ) {
@@ -166,15 +154,6 @@ var Puzzle = React.createClass({
     for ( i = 0; i < this.state.cells.length; i++ ) {
       var item = this.state.cells[i];
       if ( item.id == cell_id ) {
-        return item;
-      }
-    }
-    return null;
- },
-  findCell: function(x, y) {
-    for ( i = 0; i < this.state.cells.length; i++ ) {
-      var item = this.state.cells[i];
-      if ( item.currentPosition.x == x && item.currentPosition.y == y ) {
         return item;
       }
     }
