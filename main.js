@@ -36,7 +36,7 @@ var Finished = React.createClass({
 
 var Peice = React.createClass({
   getInitialState: function() {
-    return { previous: { x: 0, y: 0 }};
+    return { previous: {}};
   },
   onClickHandler: function() {
     this.setState({ previous: { x: this.props.x, y: this.props.y} });
@@ -71,6 +71,20 @@ var Peice = React.createClass({
       topY: ReactMotion.spring( this.props.height * this.props.y )
     };
 
+    var defaultStyle;
+    if ( ! this.state.previous.x ) {
+      // start in starting position, no initial motion.
+      defaultStyle = { 
+        leftX: ( this.props.width * this.props.x ), 
+        topY: ( this.props.height * this.props.y) 
+      };
+    } else {
+      defaultStyle = { 
+        leftX: ( this.props.width * this.state.previous.x ), 
+        topY: ( this.props.height * this.state.previous.y) 
+      };
+    }
+ 
     return (
       <ReactMotion.Motion defaultStyle={defaultStyle} style={motionStyle}>
         {this.interpolateStyle}
