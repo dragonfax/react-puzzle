@@ -35,7 +35,7 @@ var Peice = React.createClass({
       backgroundPosition: '-' + (this.props.finalX * this.props.width) + 'px -' + (this.props.finalY * this.props.height) + 'px'
     };
 
-    if ( this.props.dummy == "true" ) {
+    if ( this.props.dummy ) {
       style = {
         width: this.props.width + 'px',
         height: this.props.height + 'px'
