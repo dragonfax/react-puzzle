@@ -14,8 +14,8 @@
 }
 
 .puzzle {
+  position: relative;
   width: 273px;
   height: 297px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 }
