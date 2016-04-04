@@ -1,0 +1,21 @@
+
+.finished {
+  position: asbolute;
+  left: 50%;
+  top: 50%;
+}
+
+.peice {
+  background-image: url(WDF_700489.png);
+  background-repeat: no;
+  width: 91px;
+  height: 99px;
+  position: absolute;
+}
+
+.puzzle {
+  width: 273px;
+  height: 297px;
+  margin-left: auto;
+  margin-right: auto;
+}

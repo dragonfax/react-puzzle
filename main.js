@@ -25,12 +25,7 @@ var ReactMotion = require('react-motion');
 
 var Finished = React.createClass({
   render: function() {
-    var style = {
-      position: 'asbolute',
-      left: '50%',
-      top: '50%'
-    };
-    return <div style={style}>Finished</div>
+    return <div className="finsihed" >Finished</div>
   }
 });
 
@@ -45,16 +40,11 @@ var Peice = React.createClass({
   interpolateStyle: function(iStyle) {
     var onClickHandler = this.onClickHandler;
     var style = {
-      backgroundImage: 'url(' + this.props.img + ')', 
-      backgroundRepeat: 'no',
-      width: this.props.width + 'px', 
-      height: this.props.height + 'px', 
       backgroundPosition: '-' + (this.props.finalX * this.props.width) + 'px -' + (this.props.finalY * this.props.height) + 'px',
-      position: 'absolute',
       left: iStyle.leftX + 'px',
       top: iStyle.topY + 'px'
     };
-    return <div style={style} onClick={onClickHandler} />;
+    return <div style={style} className="peice" onClick={onClickHandler} />;
   },
   render: function() {
     if ( this.props.dummy ) {
@@ -196,18 +186,18 @@ var Puzzle = React.createClass({
     var peiceHeight = this.props.height / 3;
 
     var grid = this.state.cells.map( function(cell) {
-        return <Peice id={cell.id} img={this.props.img} width={peiceWidth} height={peiceHeight} finalX={cell.finalPosition.x} finalY={cell.finalPosition.y} x={cell.currentPosition.x} y={cell.currentPosition.y} onClick={this.swapPeices} dummy={cell.dummy} />;
+        return <Peice id={cell.id} width={peiceWidth} height={peiceHeight} finalX={cell.finalPosition.x} finalY={cell.finalPosition.y} x={cell.currentPosition.x} y={cell.currentPosition.y} onClick={this.swapPeices}/>;
     }, this);
 
     var status = <Finished/>;
 
-    var table = <div style={{ width: this.props.width + 'px', height: this.props.height + 'px', marginLeft: 'auto', marginRight: 'auto'}}> {grid} {this.state.finished ? status : ''} </div>;
+    var table = <div className="puzzle"> {grid} {this.state.finished ? status : ''} </div>;
 
     return table;
   }
 });
 
 ReactDOM.render(
-    <Puzzle img="WDF_700489.png" width="273" height="297" />,
+    <Puzzle width="273" height="297" />,
     document.getElementById('example')
 );
