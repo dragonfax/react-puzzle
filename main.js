@@ -39,6 +39,9 @@ var Peice = React.createClass({
     this.props.onClick(this.props.id);
   },
   render: function() {
+    if ( this.props.dummy ) {
+      throw "Rendering dummy peice."
+    }
     var style = {
       backgroundImage: 'url(' + this.props.img + ')', 
       backgroundRepeat: 'no',
@@ -50,16 +53,6 @@ var Peice = React.createClass({
       top: ( this.props.height * this.props.y ) + 'px'
     };
 
-    if ( this.props.dummy ) {
-      style = {
-        width: this.props.width + 'px',
-        height: this.props.height + 'px',
-        position: 'absolute',
-        left: ( this.props.width * this.props.x ) + 'px',
-        top: ( this.props.height * this.props.y ) + 'px'
-      };
-    }
-    
     return (
       <div style={style} onClick={this.onClickHandler} />
     );
